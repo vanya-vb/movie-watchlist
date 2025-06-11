@@ -27,7 +27,7 @@
         <div class="search-container">
             <div class="search-input">
                 <i class="fas fa-search"></i>
-                <input type="search" placeholder="Search for a movie" name="search" />
+                <input type="search" id="search-input" placeholder="Search for a movie" name="search" />
             </div>
             <button id="search-btn">Search</button>
         </div>
@@ -35,57 +35,35 @@
         <section class="movie-list-container">
             <!-- Movies will be inserted here -->
 
+            <!-- movie card -->
             <article class="movie-card">
                 <div class="movie-img-container">
                     <img src="img/image 33.png" alt="">
                 </div>
+
                 <div class="movie-info">
-                    <h2 class="movie-title">Blade Runner</h2>
+                    <h2 class="movie-title">
+                        Blade Runner
+                        <span class="rank"><img src="img/star-icon.png" />8.1</span>
+                    </h2>
+
                     <div class="movie-desctiption">
-                        <span>117 min</span>
-                        <span>Action, Drama, Sci-fi</span>
-                        <span>Watchlist</span>
+                        <span class="movie-duration">117 min</span>
+                        <span class="movie-genre">Action, Drama, Sci-fi</span>
+                        <button id="add-to-watchlist-btn">
+                            <img src="img/add-icon.png" />
+                            Watchlist
+                        </button>
                     </div>
-                    <p class="movie-summary">A blade runner must pursue and terminate four replicants who stole a
-                        ship in space, and have returned to Earth to find their creator.</p>
+
+                    <p class="movie-summary">
+                        A blade runner must pursue and terminate four replicants who stole a
+                        ship in space, and have returned to Earth to find their creator.
+                    </p>
                 </div>
             </article>
 
             <hr>
-
-            <article class="movie-card">
-                <div class="movie-img-container">
-                    <img src="img/image 33.png" alt="">
-                </div>
-                <div class="movie-info">
-                    <h2 class="movie-title">Blade Runner</h2>
-                    <div class="movie-desctiption">
-                        <span>117 min</span>
-                        <span>Action, Drama, Sci-fi</span>
-                        <span>Watchlist</span>
-                    </div>
-                    <p class="movie-summary">A blade runner must pursue and terminate four replicants who stole a
-                        ship in space, and have returned to Earth to find their creator.</p>
-                </div>
-            </article>
-
-            <hr>
-
-            <article class="movie-card">
-                <div class="movie-img-container">
-                    <img src="img/image 33.png" alt="">
-                </div>
-                <div class="movie-info">
-                    <h2 class="movie-title">Blade Runner</h2>
-                    <div class="movie-desctiption">
-                        <span>117 min</span>
-                        <span>Action, Drama, Sci-fi</span>
-                        <span>Watchlist</span>
-                    </div>
-                    <p class="movie-summary">A blade runner must pursue and terminate four replicants who stole a
-                        ship in space, and have returned to Earth to find their creator.</p>
-                </div>
-            </article>
 
         </section>
 

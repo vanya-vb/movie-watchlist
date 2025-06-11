@@ -23,11 +23,11 @@ a {
 
 header {
     background-color: black;
+    color: white;
     background-image: url(img/header.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    color: white;
     padding: 40px;
     height: 30%;
 
@@ -57,7 +57,7 @@ main {
 
 .movie-list-container {
     width: 100%;
-    height: auto;
+    height: 100%;
     /* border: 1px solid blue; */
     /* background-image: url(img/no-data-initial.png);
     background-repeat: no-repeat;
@@ -117,6 +117,8 @@ main {
 
 /* Watchlist */
 .watchlist {
+    height: 70%;
+    
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -132,6 +134,7 @@ main {
     cursor: pointer;
     border: none;
     background-color: transparent;
+    padding: 0;
     color: #363636;
     font-family: inherit;
     font-size: 0.875rem;
@@ -147,7 +150,6 @@ main {
 }
 
 .movie-list-container {
-    /* max-width: 460px; */
     margin-top: 50px;
 }
 
@@ -158,12 +160,15 @@ article.movie-card {
 }
 
 .movie-img-container {
-    width: 100px;
-    border-radius: 2px;
+    min-width: 100px;
+    border-radius: 3px;
+    overflow: hidden;
 }
 
 .movie-img-container img {
     display: block;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
@@ -177,10 +182,27 @@ article.movie-card {
 .movie-title {
     font-size: 1.125rem;
     font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rank {
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+.rank img {
+    margin-right: 3px;
 }
 
 .movie-desctiption {
     font-size: 0.75rem;
+
+    display: flex;
+    align-items: center;
+    gap: 18px;
 }
 
 .movie-summary {
@@ -190,4 +212,19 @@ article.movie-card {
 
 hr {
     border-top: 1px solid #E5E7EB;
+}
+
+#add-to-watchlist-btn {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#add-to-watchlist-btn img {
+    width: 16px;
 }
