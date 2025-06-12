@@ -19,6 +19,18 @@ a {
     text-decoration: none;
 }
 
+a:hover,
+button:hover {
+    color: orange;
+}
+
+a:focus,
+button:focus,
+input:focus {
+    outline: 2px solid blue;
+    outline-offset: 2px;
+}
+
 /* Header */
 
 header {
@@ -118,7 +130,7 @@ main {
 /* Watchlist */
 .watchlist {
     height: 70%;
-    
+
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -197,7 +209,7 @@ article.movie-card {
     margin-right: 3px;
 }
 
-.movie-desctiption {
+.movie-description {
     font-size: 0.75rem;
 
     display: flex;
@@ -214,7 +226,7 @@ hr {
     border-top: 1px solid #E5E7EB;
 }
 
-#add-to-watchlist-btn {
+.add-to-watchlist-btn {
     cursor: pointer;
     border: none;
     background-color: transparent;
@@ -225,6 +237,6 @@ hr {
     gap: 5px;
 }
 
-#add-to-watchlist-btn img {
+.add-to-watchlist-btn img {
     width: 16px;
 }

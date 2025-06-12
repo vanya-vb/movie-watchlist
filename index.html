@@ -26,8 +26,9 @@
     <main>
         <div class="search-container">
             <div class="search-input">
-                <i class="fas fa-search"></i>
-                <input type="search" id="search-input" placeholder="Search for a movie" name="search" />
+                <i class="fas fa-search" role="img" aria-hidden="true"></i>
+                <input type="search" id="search-input" placeholder="Search for a movie" aria-label="Enter search term"
+                    name="search" />
             </div>
             <button id="search-btn">Search</button>
         </div>
@@ -38,20 +39,22 @@
             <!-- movie card -->
             <article class="movie-card">
                 <div class="movie-img-container">
-                    <img src="img/image 33.png" alt="">
+                    <img src="img/image 33.png" alt="Poster of Blade Runner">
                 </div>
 
                 <div class="movie-info">
                     <h2 class="movie-title">
                         Blade Runner
-                        <span class="rank"><img src="img/star-icon.png" />8.1</span>
+                        <span class="rank" aria-label="Rating: 8.1">
+                            <img src="img/star-icon.png" alt="Star icon" />8.1</span>
                     </h2>
 
-                    <div class="movie-desctiption">
+                    <div class="movie-description">
                         <span class="movie-duration">117 min</span>
                         <span class="movie-genre">Action, Drama, Sci-fi</span>
-                        <button id="add-to-watchlist-btn">
-                            <img src="img/add-icon.png" />
+                        <button class="add-to-watchlist-btn" data-movie-id="tt0083658"
+                            aria-label="Add Blade Runner to watchlist">
+                            <img src="img/add-icon.png" alt="Add icon" />
                             Watchlist
                         </button>
                     </div>
