@@ -1,9 +1,10 @@
 // Capture elements
-
 const input = document.getElementById('search-input');
 const searchBtn = document.getElementById('search-btn');
-const movieListContainer = document.querySelector('.movie-list-container');
 const main = document.querySelector('.main');
+const movieListContainer = document.querySelector('.movie-list-container');
+const watchlistContainer = document.querySelector('.watchlist-container');
+// let watchlist = [];
 
 const apiKey = '1658edc3';
 
@@ -19,7 +20,7 @@ searchBtn.addEventListener('click', () => {
             return res.json()
         })
         .then(movies => {
-            console.log(movies)
+            // console.log(movies)
 
             if (input.value === '') {
                 throw new Error('Unable to find what you\'re looking for');
@@ -51,13 +52,13 @@ searchBtn.addEventListener('click', () => {
                         movieListContainer.innerHTML += `
                     <article class="movie-card">
                        <div class="movie-img-container">
-                           <img src=${movie.Poster} alt="Poster of ${movie.Title}">
+                           <img src=${movie.Poster} class="poster-img" alt="Poster of ${movie.Title}">
                        </div>
        
                        <div class="movie-info">
                            <h2 class="movie-title">
                                ${movie.Title}
-                               <span class="rank" aria-label="Rating: ${movie.imdbRating}">
+                               <span class="rating" aria-label="Rating: ${movie.imdbRating}">
                                    <img src="img/star-icon.png" alt="Star icon" />${movie.imdbRating}</span>
                            </h2>
        

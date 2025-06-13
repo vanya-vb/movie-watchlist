@@ -191,12 +191,12 @@ article.movie-card {
     gap: 10px;
 }
 
-.rank {
+.rating {
     font-size: 0.75rem;
     font-weight: 400;
 }
 
-.rank img {
+.rating img {
     margin-right: 3px;
 }
 
