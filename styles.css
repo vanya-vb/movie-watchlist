@@ -234,21 +234,25 @@ hr {
 
 
 /* Watchlist */
-/* .main-watchlist {
-    height: 70%;
+
+.watchlist-container {
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid blue; */
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    gap: 20px;
 }
 
-.watchlist>p {
-    color: #DFDDDD;
-    font-size: 1.125rem;
-    font-weight: 700;
+.empty-watchlist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
-#add-movie-btn {
+.add-movie-btn {
     cursor: pointer;
     border: none;
     background-color: transparent;
@@ -263,10 +267,6 @@ hr {
     gap: 5px;
 }
 
-#add-movie-btn img {
+.add-icon {
     width: 18px;
 }
-
-.movie-list-container {
-    margin-top: 50px;
-} */
