@@ -19,11 +19,12 @@
     <header>
         <h1 class="title">Find your film</h1>
         <p class="list">
-            <a href="watchlist.html">Watchlist</a>
+            <a href="#">Watchlist</a>
         </p>
     </header>
 
-    <main>
+    <!-- add .main-filled when movies -->
+    <main class="main">
         <div class="search-container">
             <div class="search-input">
                 <i class="fas fa-search" role="img" aria-hidden="true"></i>
@@ -33,45 +34,18 @@
             <button id="search-btn">Search</button>
         </div>
 
+        <!-- add .movie-list-filled when movies -->
         <section class="movie-list-container">
             <!-- Movies will be inserted here -->
-
-            <!-- movie card -->
-            <article class="movie-card">
-                <div class="movie-img-container">
-                    <img src="img/image 33.png" alt="Poster of Blade Runner">
-                </div>
-
-                <div class="movie-info">
-                    <h2 class="movie-title">
-                        Blade Runner
-                        <span class="rank" aria-label="Rating: 8.1">
-                            <img src="img/star-icon.png" alt="Star icon" />8.1</span>
-                    </h2>
-
-                    <div class="movie-description">
-                        <span class="movie-duration">117 min</span>
-                        <span class="movie-genre">Action, Drama, Sci-fi</span>
-                        <button class="add-to-watchlist-btn" data-movie-id="tt0083658"
-                            aria-label="Add Blade Runner to watchlist">
-                            <img src="img/add-icon.png" alt="Add icon" />
-                            Watchlist
-                        </button>
-                    </div>
-
-                    <p class="movie-summary">
-                        A blade runner must pursue and terminate four replicants who stole a
-                        ship in space, and have returned to Earth to find their creator.
-                    </p>
-                </div>
-            </article>
-
-            <hr>
-
+            <div class="no-movies">
+                <img src="img/movie-icon.png" class="movie-icon" alt="Movie icon">
+                <p class="initial-msg">Start exploring</p>
+            </div>
         </section>
 
     </main>
 
+    <script src="script.js"></script>
 </body>
 
 </html>
