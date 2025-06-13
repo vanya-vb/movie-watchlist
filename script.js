@@ -13,15 +13,18 @@ searchBtn.addEventListener('click', () => {
     fetch(`http://www.omdbapi.com/?s=${input.value}&apikey=${apiKey}`)
         .then(res => {
             if (!res.ok) {
-                throw Error('Something went wrong');
+                throw new Error('Something went wrong');
             }
 
             return res.json()
         })
         .then(movies => {
+            console.log(movies)
 
             if (input.value === '') {
-                throw new Error('Unable to find what you\'re looking for')
+                throw new Error('Unable to find what you\'re looking for');
+            } else if (movies.Response === 'False') {
+                throw new Error(movies.Error);
             }
 
             let movieTitles = [];
@@ -34,7 +37,13 @@ searchBtn.addEventListener('click', () => {
 
             for (let title of movieTitles) {
                 fetch(`http://www.omdbapi.com/?t=${title}&apikey=${apiKey}`)
-                    .then(res => res.json())
+                    .then(res => {
+                        if (!res.ok) {
+                            throw Error('Something went wrong');
+                        }
+
+                        return res.json()
+                    })
                     .then(movie => {
 
                         // console.log(movie);
@@ -78,7 +87,10 @@ searchBtn.addEventListener('click', () => {
         .catch(err => {
             console.error(err)
 
-            movieListContainer.innerHTML = "";
+            main.classList.remove('main-filled');
+            movieListContainer.classList.remove('movie-list-filled');
+
+            movieListContainer.innerHTML = '';
             const errorMsgParagraph = document.createElement('p');
             const errorText = 'Unable to find what you\'re looking for. Please try another search.';
             errorMsgParagraph.textContent = errorText;

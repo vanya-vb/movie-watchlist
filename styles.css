@@ -54,7 +54,6 @@ header {
 .main {
     height: 70%;
     padding: 0 40px 40px 40px;
-    border: 1px solid blue;
 
     display: flex;
     flex-direction: column;
@@ -126,7 +125,6 @@ header {
     flex-direction: column;
     justify-content: center;
     gap: 20px;
-    border: 1px solid blue;
 }
 
 .movie-list-filled {
