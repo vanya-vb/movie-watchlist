@@ -228,7 +228,8 @@ hr {
     gap: 5px;
 }
 
-.add-to-watchlist-btn img {
+.add-to-watchlist-btn img,
+.remove-from-watchlist-btn img {
     width: 16px;
 }
 
@@ -238,11 +239,11 @@ hr {
 .watchlist-container {
     width: 100%;
     height: 100%;
-    /* border: 1px solid blue; */
 
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 20px;
 }
 
 .empty-watchlist {
@@ -252,7 +253,8 @@ hr {
     gap: 10px;
 }
 
-.add-movie-btn {
+.add-movie-btn,
+.remove-from-watchlist-btn {
     cursor: pointer;
     border: none;
     background-color: transparent;

@@ -3,8 +3,6 @@ const input = document.getElementById('search-input');
 const searchBtn = document.getElementById('search-btn');
 const main = document.querySelector('.main');
 const movieListContainer = document.querySelector('.movie-list-container');
-const watchlistContainer = document.querySelector('.watchlist-container');
-// let watchlist = [];
 
 const apiKey = '1658edc3';
 
@@ -23,7 +21,7 @@ searchBtn.addEventListener('click', () => {
             // console.log(movies)
 
             if (input.value === '') {
-                throw new Error('Unable to find what you\'re looking for');
+                throw new Error(movies.Error);
             } else if (movies.Response === 'False') {
                 throw new Error(movies.Error);
             }
@@ -33,8 +31,6 @@ searchBtn.addEventListener('click', () => {
             for (let movie of movies.Search) {
                 movieTitles.push(movie.Title);
             }
-
-            // console.log(movieTitles);
 
             for (let title of movieTitles) {
                 fetch(`http://www.omdbapi.com/?t=${title}&apikey=${apiKey}`)
@@ -46,9 +42,6 @@ searchBtn.addEventListener('click', () => {
                         return res.json()
                     })
                     .then(movie => {
-
-                        // console.log(movie);
-
                         movieListContainer.innerHTML += `
                     <article class="movie-card">
                        <div class="movie-img-container">
@@ -66,7 +59,7 @@ searchBtn.addEventListener('click', () => {
                                <span class="movie-duration">${movie.Runtime}</span>
                                <span class="movie-genre">${movie.Genre}</span>
                                <button class="add-to-watchlist-btn" data-movie-id=${movie.imdbID}
-                                   aria-label="Add  ${movie.Title} to watchlist">
+                                   aria-label="Add ${movie.Title} to watchlist">
                                    <img src="img/add-icon.png" alt="Add icon" />
                                    Watchlist
                                </button>
@@ -86,7 +79,7 @@ searchBtn.addEventListener('click', () => {
             movieListContainer.innerHTML = '';
         })
         .catch(err => {
-            console.error(err)
+            console.error(err);
 
             main.classList.remove('main-filled');
             movieListContainer.classList.remove('movie-list-filled');
@@ -100,3 +93,47 @@ searchBtn.addEventListener('click', () => {
             movieListContainer.appendChild(errorMsgParagraph);
         })
 })
+
+// Add to watchlist functionality
+let watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+
+movieListContainer.addEventListener('click', (e) => {
+    // find which button was clicked by id
+    const button = e.target.closest('.add-to-watchlist-btn');
+
+    if (button) {
+        // make a film object
+        const movieId = button.dataset.movieId;
+        const movieCard = button.closest('.movie-card');
+        const title = movieCard.querySelector('.movie-title').childNodes[0].textContent.trim();
+        const poster = movieCard.querySelector('img').src;
+        const rating = movieCard.querySelector('.rating').textContent.trim();
+        const genre = movieCard.querySelector('.movie-genre').textContent;
+        const duration = movieCard.querySelector('.movie-duration').textContent;
+        const summary = movieCard.querySelector('.movie-summary').textContent;
+
+        const movie = {
+            id: movieId,
+            title,
+            poster,
+            rating,
+            genre,
+            duration,
+            summary
+        };
+
+        // add it to watchlist arr
+        if (watchlist.some(movie => movie.id === movieId)) {
+            console.log(`"${title}" is already in your watchlist.`);
+        } else {
+            watchlist.push(movie);
+        }
+
+        // add the arr of movies to localStorage
+        localStorage.setItem('watchlist', JSON.stringify(watchlist));
+
+        // display the saved movies in watchlistContainer => watchlist.js
+        // add remove functionality => watchlist.js
+    }
+})
+
