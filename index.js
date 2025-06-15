@@ -68,8 +68,6 @@ searchBtn.addEventListener('click', () => {
                            <p class="movie-summary">${movie.Plot}</p>
                        </div>
                    </article>
-       
-                   <hr>
                    `;
                     })
             }

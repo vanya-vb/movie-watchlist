@@ -34,7 +34,6 @@ if (savedWatchlist.length > 0) {
                <p class="movie-summary">${movie.summary}</p>
            </div>
        </article>
-       <hr>
       `;
 
         main.classList.add('main-filled');

@@ -156,8 +156,15 @@ header {
 
 /* Movie card */
 article.movie-card {
+    border-bottom: 1px solid #E5E7EB;
+    padding-bottom: 20px;
+
     display: flex;
     gap: 20px;
+}
+
+article.movie-card:last-child {
+    border-bottom: unset;
 }
 
 .movie-img-container {
@@ -211,10 +218,6 @@ article.movie-card {
 .movie-summary {
     font-size: 0.875rem;
     color: #6B7280;
-}
-
-hr {
-    border-top: 1px solid #E5E7EB;
 }
 
 .add-to-watchlist-btn,
