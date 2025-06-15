@@ -280,3 +280,10 @@ article.movie-card:last-child {
 .add-icon {
     width: 18px;
 }
+
+@media(max-width: 550px) {
+    html {
+        font-size: 12px;
+    }
+
+}
