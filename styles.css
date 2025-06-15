@@ -12,6 +12,9 @@ html {
 
 body {
     height: 100vh;
+    max-width: 550px;
+    margin: 0 auto;
+    background-color: rgb(26, 26, 26);
 }
 
 a {
@@ -54,6 +57,7 @@ header {
 .main {
     height: 70%;
     padding: 0 40px 40px 40px;
+    background-color: white;
 
     display: flex;
     flex-direction: column;
@@ -62,6 +66,7 @@ header {
 }
 
 .main-filled {
+    min-height: 70%;
     height: auto;
 }
 
