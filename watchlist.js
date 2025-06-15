@@ -1,7 +1,9 @@
+// Capture elements
 const main = document.querySelector('.main');
 const watchlistContainer = document.querySelector('.watchlist-container');
 const emptyWatchlist = document.querySelector('.empty-watchlist');
 
+// Get the watchlist from local storage
 let savedWatchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
 
 if (savedWatchlist.length > 0) {
@@ -9,7 +11,6 @@ if (savedWatchlist.length > 0) {
     watchlistContainer.innerHTML = '';
 
     savedWatchlist.forEach(movie => {
-
         watchlistContainer.innerHTML += `
         <article class="movie-card">
            <div class="movie-img-container">
@@ -18,7 +19,7 @@ if (savedWatchlist.length > 0) {
            <div class="movie-info">
                <h2 class="movie-title">
                    ${movie.title}
-                   <span class="rank">
+                   <span class="rating">
                        <img src="img/star-icon.png" alt="star icon">
                        ${movie.rating}
                    </span>
@@ -42,7 +43,7 @@ if (savedWatchlist.length > 0) {
     });
 }
 
-// Add remove functionality
+// Remove btn functionality
 
 watchlistContainer.addEventListener('click', (e) => {
     // find which button was clicked by id
@@ -52,14 +53,14 @@ watchlistContainer.addEventListener('click', (e) => {
     // get the movie card
     const movieCard = button.closest('.movie-card');
 
-    // get the index of the clicked card in the arr
+    // get the index of the clicked movie card in the arr
     const index = savedWatchlist.findIndex(movie => movieId === movie.id);
 
-    // remove the movie and the movie card
+    // remove the movie from the arr and the movie card from the DOM
     savedWatchlist.splice(index, 1);
     movieCard.remove();
 
-    // updathe local storage
+    // update local storage
     localStorage.setItem('watchlist', JSON.stringify(savedWatchlist));
     savedWatchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
 

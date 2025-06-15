@@ -81,16 +81,17 @@ searchBtn.addEventListener('click', () => {
         .catch(err => {
             console.error(err);
 
-            main.classList.remove('main-filled');
-            movieListContainer.classList.remove('movie-list-filled');
-
             movieListContainer.innerHTML = '';
+
             const errorMsgParagraph = document.createElement('p');
             const errorText = 'Unable to find what you\'re looking for. Please try another search.';
             errorMsgParagraph.textContent = errorText;
             errorMsgParagraph.classList.add('error-msg');
 
             movieListContainer.appendChild(errorMsgParagraph);
+            
+            main.classList.remove('main-filled');
+            movieListContainer.classList.remove('movie-list-filled');
         })
 })
 
@@ -122,11 +123,12 @@ movieListContainer.addEventListener('click', (e) => {
             summary
         };
 
-        // add it to watchlist arr
+        // add it to watchlist arr if it's not added
         if (watchlist.some(movie => movie.id === movieId)) {
             console.log(`"${title}" is already in your watchlist.`);
         } else {
             watchlist.push(movie);
+            console.log(`"${title}" is added in your watchlist.`);
         }
 
         // add the arr of movies to localStorage

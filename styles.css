@@ -217,7 +217,8 @@ hr {
     border-top: 1px solid #E5E7EB;
 }
 
-.add-to-watchlist-btn {
+.add-to-watchlist-btn,
+.remove-from-watchlist-btn {
     cursor: pointer;
     border: none;
     background-color: transparent;
@@ -253,8 +254,7 @@ hr {
     gap: 10px;
 }
 
-.add-movie-btn,
-.remove-from-watchlist-btn {
+.add-movie-link {
     cursor: pointer;
     border: none;
     background-color: transparent;
