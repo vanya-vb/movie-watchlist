@@ -68,6 +68,7 @@ header {
 .main-filled {
     min-height: 70%;
     height: auto;
+    justify-content: flex-start;
 }
 
 /* search container */
