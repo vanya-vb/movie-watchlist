@@ -126,7 +126,7 @@ header {
 }
 
 #search-btn:hover {
-   background-color: #DFDDDD; 
+    background-color: #DFDDDD;
 }
 
 /* movie list container */
@@ -233,6 +233,23 @@ article.movie-card:last-child {
 .movie-summary {
     font-size: 0.875rem;
     color: #6B7280;
+    line-height: 1.3;
+    /* text-wrap: balance; */
+    position: relative;
+}
+
+.read-more-btn {
+    cursor: pointer;
+    background-color: transparent;
+    font-style: inherit;
+    color: black;
+    font-size: 0.75rem;
+    border: unset;
+    padding: 0;
+}
+
+.read-more-btn:hover {
+    border-bottom: 1px solid orange;
 }
 
 .add-to-watchlist-btn,

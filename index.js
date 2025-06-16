@@ -42,6 +42,13 @@ searchBtn.addEventListener('click', () => {
                         return res.json()
                     })
                     .then(movie => {
+                        let plotText = movie.Plot;
+                        isReadBtnNeeded = plotText.length > 130;
+
+                        if (plotText.length > 130) {
+                            plotText = plotText.split('').slice(0, 130).join('') + '...';
+                        }
+
                         movieListContainer.innerHTML += `
                     <article class="movie-card">
                        <div class="movie-img-container">
@@ -65,7 +72,14 @@ searchBtn.addEventListener('click', () => {
                                </button>
                            </div>
        
-                           <p class="movie-summary">${movie.Plot}</p>
+                           ${isReadBtnNeeded ?
+                                `<p class="movie-summary">
+                                    <span>${plotText}</span>
+                                    <button class="read-more-btn">Read more</button></div>
+                                </p>`
+                                :
+                                `<p class="movie-summary">${plotText}</p>`
+                            }
                        </div>
                    </article>
                    `;
@@ -87,7 +101,7 @@ searchBtn.addEventListener('click', () => {
             errorMsgParagraph.classList.add('error-msg');
 
             movieListContainer.appendChild(errorMsgParagraph);
-            
+
             main.classList.remove('main-filled');
             movieListContainer.classList.remove('movie-list-filled');
         })
