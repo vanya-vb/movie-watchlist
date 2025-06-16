@@ -26,14 +26,11 @@ searchBtn.addEventListener('click', () => {
                 throw new Error(movies.Error);
             }
 
-            let movieTitles = [];
+            let movieIds = movies.Search.map(movie => movie.imdbID)
+            movieListContainer.innerHTML = '';
 
-            for (let movie of movies.Search) {
-                movieTitles.push(movie.Title);
-            }
-
-            for (let title of movieTitles) {
-                fetch(`http://www.omdbapi.com/?t=${title}&apikey=${apiKey}`)
+            for (let id of movieIds) {
+                fetch(`http://www.omdbapi.com/?i=${id}&apikey=${apiKey}`)
                     .then(res => {
                         if (!res.ok) {
                             throw Error('Something went wrong');
@@ -42,11 +39,11 @@ searchBtn.addEventListener('click', () => {
                         return res.json()
                     })
                     .then(movie => {
-                        let plotText = movie.Plot;
-                        isReadBtnNeeded = plotText.length > 130;
+                        let shortPlotText = '';
+                        isReadBtnNeeded = movie.Plot.length > 130;
 
-                        if (plotText.length > 130) {
-                            plotText = plotText.split('').slice(0, 130).join('') + '...';
+                        if (isReadBtnNeeded) {
+                            shortPlotText = movie.Plot.split('').slice(0, 130).join('') + '...';
                         }
 
                         movieListContainer.innerHTML += `
@@ -74,13 +71,18 @@ searchBtn.addEventListener('click', () => {
        
                            ${isReadBtnNeeded ?
                                 `<p class="movie-summary">
-                                    <span>${plotText}</span>
-                                    <button class="read-more-btn">Read more</button></div>
+                                    <span>${shortPlotText}</span>
+                                    <button 
+                                        class="plot-btn" 
+                                        data-state="short"
+                                        data-short-plot="${shortPlotText}"
+                                        data-full-plot="${movie.Plot}">
+                                        Read more
+                                    </button>
                                 </p>`
                                 :
-                                `<p class="movie-summary">${plotText}</p>`
+                                `<p class="movie-summary">${movie.Plot}</p>`
                             }
-                       </div>
                    </article>
                    `;
                     })
@@ -88,7 +90,6 @@ searchBtn.addEventListener('click', () => {
 
             main.classList.add('main-filled');
             movieListContainer.classList.add('movie-list-filled');
-            movieListContainer.innerHTML = '';
         })
         .catch(err => {
             console.error(err);
@@ -107,17 +108,33 @@ searchBtn.addEventListener('click', () => {
         })
 })
 
-// Add to watchlist functionality
 let watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
 
 movieListContainer.addEventListener('click', (e) => {
     // find which button was clicked by id
-    const button = e.target.closest('.add-to-watchlist-btn');
+    const addBtn = e.target.closest('.add-to-watchlist-btn');
+    const readMoreBtn = e.target.closest('.plot-btn');
 
-    if (button) {
+    // Read more functionality
+    if (readMoreBtn) {
+        const movieSummary = readMoreBtn.previousElementSibling;
+
+        if (readMoreBtn.dataset.state === 'short') {
+            movieSummary.textContent = readMoreBtn.dataset.fullPlot;
+            readMoreBtn.dataset.state = 'full';
+            readMoreBtn.textContent = 'Read less';
+        } else {
+            movieSummary.textContent = readMoreBtn.dataset.shortPlot;
+            readMoreBtn.dataset.state = 'short';
+            readMoreBtn.textContent = 'Read more';
+        }
+    }
+
+    // Add to watchlist functionality
+    if (addBtn) {
         // make a film object
-        const movieId = button.dataset.movieId;
-        const movieCard = button.closest('.movie-card');
+        const movieId = addBtn.dataset.movieId;
+        const movieCard = addBtn.closest('.movie-card');
         const title = movieCard.querySelector('.movie-title').childNodes[0].textContent.trim();
         const poster = movieCard.querySelector('img').src;
         const rating = movieCard.querySelector('.rating').textContent.trim();
@@ -150,4 +167,5 @@ movieListContainer.addEventListener('click', (e) => {
         // add remove functionality => watchlist.js
     }
 })
+
 

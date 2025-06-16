@@ -238,7 +238,7 @@ article.movie-card:last-child {
     position: relative;
 }
 
-.read-more-btn {
+.plot-btn {
     cursor: pointer;
     background-color: transparent;
     font-style: inherit;
@@ -248,7 +248,7 @@ article.movie-card:last-child {
     padding: 0;
 }
 
-.read-more-btn:hover {
+.plot-btn:hover {
     border-bottom: 1px solid orange;
 }
 
