@@ -76,7 +76,7 @@ searchBtn.addEventListener('click', () => {
        
                            ${isReadBtnNeeded ?
                                 `<p class="movie-summary">
-                                    <span>${shortPlotText}</span>
+                                    <span class="plot-text">${shortPlotText}</span>
                                     <button 
                                         class="plot-btn" 
                                         data-state="short"
@@ -113,7 +113,6 @@ searchBtn.addEventListener('click', () => {
 let watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
 
 // Add to watchlist functionality
-
 movieListContainer.addEventListener('click', (e) => {
     // find which button was clicked by id
     const addBtn = e.target.closest('.add-to-watchlist-btn');
@@ -156,7 +155,6 @@ movieListContainer.addEventListener('click', (e) => {
 });
 
 // Read more functionality
-
 movieListContainer.addEventListener('click', (e) => {
     // find which button was clicked
     const readMoreBtn = e.target.closest('.plot-btn');

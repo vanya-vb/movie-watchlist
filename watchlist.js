@@ -6,71 +6,82 @@ const emptyWatchlist = document.querySelector('.empty-watchlist');
 // Get the watchlist from local storage
 let savedWatchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
 
-if (savedWatchlist.length > 0) {
-
+function renderWatchlist() {
     watchlistContainer.innerHTML = '';
-    main.classList.add('main-filled');
-    watchlistContainer.classList.add('movie-list-filled');
+
+    if (savedWatchlist.length === 0) {
+        watchlistContainer.appendChild(emptyWatchlist);
+        main.classList.remove('main-filled');
+        watchlistContainer.classList.remove('movie-list-filled');
+
+        return;
+    }
 
     savedWatchlist.forEach(movie => {
 
+        main.classList.add('main-filled');
+        watchlistContainer.classList.add('movie-list-filled');
+
         watchlistContainer.innerHTML += `
-        <article class="movie-card">
-           <div class="movie-img-container">
-               <img src="${movie.poster}" alt="Poster of ${movie.title}">
-           </div>
-           <div class="movie-info">
-               <h2 class="movie-title">
-                   ${movie.title}
-                   <span class="rating">
-                       <img src="img/star-icon.png" alt="star icon">
-                       ${movie.rating}
-                   </span>
-               </h2>
-               <div class="movie-description">
-                   <span class="movie-duration">${movie.duration}</span>
-                   <span class="movie-genre">${movie.genre}</span>
-                   <button class="remove-from-watchlist-btn" data-movie-id="${movie.id}">
-                       <img src="img/remove-icon.png" alt="Remove icon"> Remove
-                   </button>
-               </div>
-               <p class="movie-summary">${movie.summary}</p>
-           </div>
-       </article>
-      `;
+                <article class="movie-card">
+                    <div class="movie-img-container">
+                        <img src="${movie.poster}" alt="Poster of ${movie.title}">
+                    </div>
+                    <div class="movie-info">
+                        <h2 class="movie-title">
+                            ${movie.title}
+                            <span class="rating">
+                                <img src="img/star-icon.png" alt="Star icon">
+                                ${movie.rating}
+                            </span>
+                        </h2>
+                        <div class="movie-description">
+                            <span class="movie-duration">${movie.duration}</span>
+                            <span class="movie-genre">${movie.genre}</span>
+                            <button class="remove-from-watchlist-btn" data-movie-id="${movie.id}">
+                                <img src="img/remove-icon.png" alt="Minus icon"> 
+                                Remove
+                            </button>
+                        </div>
+                        
+                        <p class="movie-summary">${movie.summary}</p>
+                </article>
+        `;
     });
 }
 
-// Remove btn functionality
+// Initial render
+renderWatchlist();
 
+// Remove from watchlist functionality
 watchlistContainer.addEventListener('click', (e) => {
-    // find which button was clicked by id
-    const button = e.target.closest('.remove-from-watchlist-btn');
-    const movieId = button.dataset.movieId;
+    const removeBtn = e.target.closest('.remove-from-watchlist-btn');
 
-    // get the movie card
-    const movieCard = button.closest('.movie-card');
+    if (removeBtn) {
+        const movieId = removeBtn.dataset.movieId;
+        const movieCard = removeBtn.closest('.movie-card');
+        const index = savedWatchlist.findIndex(movie => movieId === movie.id);
 
-    // get the index of the clicked movie card in the arr
-    const index = savedWatchlist.findIndex(movie => movieId === movie.id);
+        savedWatchlist.splice(index, 1);
+        movieCard.remove();
 
-    // remove the movie from the arr and the movie card from the DOM
-    savedWatchlist.splice(index, 1);
-    movieCard.remove();
+        // update local storage
+        localStorage.setItem('watchlist', JSON.stringify(savedWatchlist));
 
-    // update local storage
-    localStorage.setItem('watchlist', JSON.stringify(savedWatchlist));
-    savedWatchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+        renderWatchlist();
+    }
+});
 
-    if (savedWatchlist.length === 0) {
-        watchlistContainer.innerHTML = '';
-        watchlistContainer.appendChild(emptyWatchlist);
+// Read more functionality
+watchlistContainer.addEventListener('click', (e) => {
+    const plotBtn = e.target.closest('.plot-btn');
 
-        main.classList.remove('main-filled');
-        watchlistContainer.classList.remove('movie-list-filled');
+    if (plotBtn) {
+        const plotText = plotBtn.parentElement.querySelector('.plot-text');
+        const isShort = plotBtn.dataset.state === 'short';
+
+        plotText.textContent = isShort ? plotBtn.dataset.fullPlot : plotBtn.dataset.shortPlot;
+        plotBtnФ.textContent = isShort ? 'Read less' : 'Read more';
+        plotBtn.dataset.state = isShort ? 'full' : 'short';
     }
 })
-
-// localStorage.clear();
-
-
