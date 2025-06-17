@@ -18,7 +18,6 @@ searchBtn.addEventListener('click', () => {
             return res.json()
         })
         .then(movies => {
-            // console.log(movies)
 
             if (input.value === '') {
                 throw new Error(movies.Error);
@@ -26,8 +25,11 @@ searchBtn.addEventListener('click', () => {
                 throw new Error(movies.Error);
             }
 
-            let movieIds = movies.Search.map(movie => movie.imdbID)
+            let movieIds = movies.Search.map(movie => movie.imdbID);
+
             movieListContainer.innerHTML = '';
+            main.classList.add('main-filled');
+            movieListContainer.classList.add('movie-list-filled');
 
             for (let id of movieIds) {
                 fetch(`http://www.omdbapi.com/?i=${id}&apikey=${apiKey}`)
@@ -39,8 +41,9 @@ searchBtn.addEventListener('click', () => {
                         return res.json()
                     })
                     .then(movie => {
-                        let shortPlotText = '';
+
                         isReadBtnNeeded = movie.Plot.length > 130;
+                        let shortPlotText = '';
 
                         if (isReadBtnNeeded) {
                             shortPlotText = movie.Plot.split('').slice(0, 130).join('') + '...';
@@ -62,9 +65,11 @@ searchBtn.addEventListener('click', () => {
                            <div class="movie-description">
                                <span class="movie-duration">${movie.Runtime}</span>
                                <span class="movie-genre">${movie.Genre}</span>
-                               <button class="add-to-watchlist-btn" data-movie-id=${movie.imdbID}
+                               <button 
+                                   class="add-to-watchlist-btn" 
+                                   data-movie-id=${movie.imdbID}
                                    aria-label="Add ${movie.Title} to watchlist">
-                                   <img src="img/add-icon.png" alt="Add icon" />
+                                   <img src="img/add-icon.png" alt="Plus icon" />
                                    Watchlist
                                </button>
                            </div>
@@ -83,13 +88,10 @@ searchBtn.addEventListener('click', () => {
                                 :
                                 `<p class="movie-summary">${movie.Plot}</p>`
                             }
-                   </article>
+                    </article>
                    `;
                     })
             }
-
-            main.classList.add('main-filled');
-            movieListContainer.classList.add('movie-list-filled');
         })
         .catch(err => {
             console.error(err);
@@ -110,29 +112,14 @@ searchBtn.addEventListener('click', () => {
 
 let watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
 
+// Add to watchlist functionality
+
 movieListContainer.addEventListener('click', (e) => {
     // find which button was clicked by id
     const addBtn = e.target.closest('.add-to-watchlist-btn');
-    const readMoreBtn = e.target.closest('.plot-btn');
 
-    // Read more functionality
-    if (readMoreBtn) {
-        const movieSummary = readMoreBtn.previousElementSibling;
-
-        if (readMoreBtn.dataset.state === 'short') {
-            movieSummary.textContent = readMoreBtn.dataset.fullPlot;
-            readMoreBtn.dataset.state = 'full';
-            readMoreBtn.textContent = 'Read less';
-        } else {
-            movieSummary.textContent = readMoreBtn.dataset.shortPlot;
-            readMoreBtn.dataset.state = 'short';
-            readMoreBtn.textContent = 'Read more';
-        }
-    }
-
-    // Add to watchlist functionality
+    // make a film object
     if (addBtn) {
-        // make a film object
         const movieId = addBtn.dataset.movieId;
         const movieCard = addBtn.closest('.movie-card');
         const title = movieCard.querySelector('.movie-title').childNodes[0].textContent.trim();
@@ -152,7 +139,7 @@ movieListContainer.addEventListener('click', (e) => {
             summary
         };
 
-        // add it to watchlist arr if it's not added
+        // add it to watchlist arr if it's not present
         if (watchlist.some(movie => movie.id === movieId)) {
             console.log(`"${title}" is already in your watchlist.`);
         } else {
@@ -166,6 +153,28 @@ movieListContainer.addEventListener('click', (e) => {
         // display the saved movies in watchlistContainer => watchlist.js
         // add remove functionality => watchlist.js
     }
-})
+});
+
+// Read more functionality
+
+movieListContainer.addEventListener('click', (e) => {
+    // find which button was clicked
+    const readMoreBtn = e.target.closest('.plot-btn');
+
+    // toggle the plot length
+    if (readMoreBtn) {
+        const movieSummary = readMoreBtn.previousElementSibling;
+
+        if (readMoreBtn.dataset.state === 'short') {
+            movieSummary.textContent = readMoreBtn.dataset.fullPlot;
+            readMoreBtn.dataset.state = 'full';
+            readMoreBtn.textContent = 'Read less';
+        } else {
+            movieSummary.textContent = readMoreBtn.dataset.shortPlot;
+            readMoreBtn.dataset.state = 'short';
+            readMoreBtn.textContent = 'Read more';
+        }
+    }
+});
 
 

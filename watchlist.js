@@ -9,8 +9,11 @@ let savedWatchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
 if (savedWatchlist.length > 0) {
 
     watchlistContainer.innerHTML = '';
+    main.classList.add('main-filled');
+    watchlistContainer.classList.add('movie-list-filled');
 
     savedWatchlist.forEach(movie => {
+
         watchlistContainer.innerHTML += `
         <article class="movie-card">
            <div class="movie-img-container">
@@ -35,10 +38,6 @@ if (savedWatchlist.length > 0) {
            </div>
        </article>
       `;
-
-        main.classList.add('main-filled');
-        watchlistContainer.classList.add('movie-list-filled');
-
     });
 }
 
