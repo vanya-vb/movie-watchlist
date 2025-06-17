@@ -81,7 +81,7 @@ watchlistContainer.addEventListener('click', (e) => {
         const isShort = plotBtn.dataset.state === 'short';
 
         plotText.textContent = isShort ? plotBtn.dataset.fullPlot : plotBtn.dataset.shortPlot;
-        plotBtnФ.textContent = isShort ? 'Read less' : 'Read more';
+        plotBtn.textContent = isShort ? 'Read less' : 'Read more';
         plotBtn.dataset.state = isShort ? 'full' : 'short';
     }
 })
